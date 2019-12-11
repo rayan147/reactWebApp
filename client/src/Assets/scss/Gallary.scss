@@ -1,0 +1,47 @@
+$transition: 0.2s;
+$items: 5;
+
+.image {
+  float: left;
+  width: 10vw;
+  height: 70vh;
+  display: grid;
+  grid-auto-flow: row;
+  overflow-x: unset;
+  grid-template-columns: repeat(5, 1fr);
+}
+.image,
+img {
+  transition: transform 300ms ease-out, opacity 250ms ease-out;
+}
+.img {
+  transform-origin: center right;
+}
+image:hover {
+  -webkit-transform: translate3d(-62.5px, 0, 0);
+  transform: translate3d(-62.5px, 0, 0);
+}
+.image:hover .img {
+  transform: scale(1.2);
+  justify-content: space-evenly;
+  margin: 0.9rem;
+  width: 13vw;
+  background: white;
+}
+image:hover .img:hover {
+  transform: scale(1.2);
+  margin: 0.9rem;
+}
+img:hover ~ .img {
+  transform: translate3d(90px, 0, 0);
+}
+// .image {
+//   display: block;
+//   margin: 0;
+// }
+
+.image figcaption {
+  display: block;
+  margin: 0.2em 0 0;
+  font-weight: normal;
+}

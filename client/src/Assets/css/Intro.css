@@ -1,0 +1,14 @@
+.DownArrow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 0%;
+}
+.DownArrow:hover {
+  transition: transform 300ms ease-out, opacity 250ms ease-out,
+    -webkit-transform 300ms ease-out;
+  transform: scale(1.3);
+  transform-origin: center center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
