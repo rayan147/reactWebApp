@@ -70,8 +70,10 @@ const ContactWithFormik = ({ title, onSubmit }) => {
                 setFormMessage(
                   "Your message has been submitted !!.Please allow us 24 hour for a response."
                 );
+
                 setSubmitting(false);
-                resetForm();
+                resetForm(initialValues);
+
                 return response;
               })();
             } catch (err) {
@@ -92,12 +94,14 @@ const ContactWithFormik = ({ title, onSubmit }) => {
             handleSubmit,
             isSubmitting,
             setFieldValue,
-            setValues
+            setValues,
+            resetForm
           }) => (
             <Container style={styleMargin}>
               <br />
               {formMessage ? <Message msg={formMessage} /> : null}
               <Form
+                onSubmit={() => resetForm(initialValues)}
                 mode="structured"
                 className="shadow-lg p-5 mb-5 bg-white rounded"
                 method="post"
@@ -139,7 +143,11 @@ const ContactWithFormik = ({ title, onSubmit }) => {
                           <label className="fileupload">
                             Choose file...Click the dropbox
                           </label>
-                          <Field name="files" component={FileUpload} />
+                          <Field
+                            id="files"
+                            name="files"
+                            component={FileUpload}
+                          />
                         </FormGroup>
                       </Col>
                     </Row>

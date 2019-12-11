@@ -1,6 +1,6 @@
 import React from "react";
+import { Field } from "formik";
 import { Input } from "reactstrap";
-import { isLabeledStatement } from "@babel/types";
 function FileUpload(props) {
   const { field, form } = props;
 
@@ -13,10 +13,12 @@ function FileUpload(props) {
       const binaryStr = reader.result;
       imgTag.src = event.target.result;
       console.log(binaryStr);
+      binaryStr.replace("");
     };
     reader.readAsDataURL(file);
     form.setFieldValue(field.name, file);
   };
+
   const dropzoneStyle = {
     width: "100%",
     height: "auto",
@@ -25,10 +27,14 @@ function FileUpload(props) {
     borderStyle: "dashed",
     borderRadius: 5
   };
+  const resetFormFields = () => {
+    return <script></script>;
+  };
   return (
     <>
       <div style={dropzoneStyle}>
-        <Input
+        <Field
+          component={Input}
           accept="image/*"
           type={"file"}
           onChange={o => handleChange(o)}
