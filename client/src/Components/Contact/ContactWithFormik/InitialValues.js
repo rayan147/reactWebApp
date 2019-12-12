@@ -1,10 +1,10 @@
 export const initialValues = {
-  name: "",
-  email: "",
-  subject: "",
-  phone: "",
-  designNote: "",
-  files: "",
+  name: "Test name",
+  email: "email@email.com",
+  subject: "it works",
+  phone: "5565644444",
+  designNote: "it woorksss",
+  files: [],
   isFirstTimeCustumer: false,
   isReturningCustumer: false
 };

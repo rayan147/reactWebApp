@@ -13,7 +13,6 @@ function FileUpload(props) {
       const binaryStr = reader.result;
       imgTag.src = event.target.result;
       console.log(binaryStr);
-      binaryStr.replace("");
     };
     reader.readAsDataURL(file);
     form.setFieldValue(field.name, file);

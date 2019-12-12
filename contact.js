@@ -15,10 +15,10 @@ exports.contact = (req, res, next) => {
   if (req.files === null) {
     return res.status(404).json({ msg: "No file was uploaded" });
   }
+  console.log(req);
 
   //convert file to base64
-  const base64Image = req.files.files.data.toString("base64");
-  console.log(base64Image);
+  const base64Image = req.files;
 
   const output = `
   <style>

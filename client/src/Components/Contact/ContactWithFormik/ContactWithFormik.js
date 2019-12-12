@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { render } from "react-dom";
 import axios from "axios";
-import { Form } from "react-formik-ui";
+import { Form, DropZone } from "react-formik-ui";
 import "../../../Assets/css/Contact.css";
 
 import { Container, Row, Input, Col, FormGroup } from "reactstrap";
@@ -47,10 +47,13 @@ const ContactWithFormik = ({ title, onSubmit }) => {
             formData.append("email", values.email);
             formData.append("subject", values.subject);
             formData.append("phone", values.phone);
-            formData.append("files", values.files);
             formData.append("designNote", values.designNote);
 
-            // Pull data from file
+            //loop over input array
+
+            for (let i = 0; i <= values.files.length; i++) {
+              formData.append(`files[${i}]`, values.files[i]);
+            }
 
             // WRITE AXIOS CALL TO THE SERVER HERE
 
@@ -101,7 +104,6 @@ const ContactWithFormik = ({ title, onSubmit }) => {
               <br />
               {formMessage ? <Message msg={formMessage} /> : null}
               <Form
-                onSubmit={() => resetForm(initialValues)}
                 mode="structured"
                 className="shadow-lg p-5 mb-5 bg-white rounded"
                 method="post"
@@ -136,7 +138,7 @@ const ContactWithFormik = ({ title, onSubmit }) => {
                     className={touched.designNote && errors.designNote}
                   />
 
-                  <Container className="mt-5">
+                  {/* <Container className="mt-5">
                     <Row>
                       <Col lg={6}>
                         <FormGroup>
@@ -151,8 +153,16 @@ const ContactWithFormik = ({ title, onSubmit }) => {
                         </FormGroup>
                       </Col>
                     </Row>
-                  </Container>
+                  </Container> */}
                 </Row>
+                <DropZone
+                  id="files"
+                  name="files"
+                  label="File upload"
+                  placeholder="Try dropping some files here, or click to select files to upload."
+                  withClearButton
+                  multiple={true}
+                />
                 <ButtonComponent disable={isSubmitting} name="Submit" />
               </Form>
             </Container>
