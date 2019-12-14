@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../../../Assets/css/Contact.css";
 
-import { Formik, Form, Field } from "formik";
+import { Formik, Field } from "formik";
+import { DropZone, Form } from "react-formik-ui";
 import { Container, Row, Col, FormGroup } from "reactstrap";
 
 // import { ContactQuoteSchema } from "../../Validations/ContactQuoteSchema";
@@ -54,7 +55,39 @@ const ContactQuoteWithFormiks = () => {
             try {
               (async () => {
                 let quoteAPI = "/api/v1/quotes";
-                let formData = new FormData(InitialValues);
+                let formData = new FormData();
+                formData.append("name", values.name);
+                formData.append("email", values.email);
+                formData.append("subject", values.subject);
+                formData.append("phone", values.phone);
+                formData.append("message", values.message);
+                formData.append("eventDate", values.eventDate);
+                formData.append("dateTime", values.dateTime);
+                formData.append(" flavour", values.flavour);
+                formData.append("eventType", values.eventType);
+                formData.append("filling", values.filling);
+                formData.append("soak", values.soak);
+                formData.append("files", values.files);
+                formData.append(" numberOfGuest", values.numberOfGuest);
+                formData.append("location", values.location);
+                formData.append("stretAddress", values.stretAddress);
+                formData.append("deliveryDate", values.deliveryDate);
+                formData.append(" deliveryTime", values.deliveryTime);
+                formData.append(
+                  "isFirstTimeCustumer",
+                  values.isFirstTimeCustumer
+                );
+                formData.append(
+                  "isReturningCustumer",
+                  values.isReturningCustumer
+                );
+                formData.append("designNote", values.designNote);
+
+                //loop over input array
+
+                // for (let i = 0; i <= values.files.length; i++) {
+                //   formData.append(`files[${i}]`, values.files[i]);
+                // }
 
                 const response = await axios.post(quoteAPI, formData, {
                   headers: {
@@ -87,7 +120,10 @@ const ContactQuoteWithFormiks = () => {
           }) => (
             <Container style={styleMargin}>
               {displayMessage}
-              <Form className="shadow-lg p-5 mb-5 bg-white rounded">
+              <Form
+                className="shadow-lg p-5 mb-5 bg-white rounded"
+                mode="structured"
+              >
                 <Row form>
                   <Email
                     className={touched.email && errors.email}
@@ -171,6 +207,7 @@ const ContactQuoteWithFormiks = () => {
                   errros={errors.designNote}
                   className={touched.designNote && errors.designNote}
                 />
+
                 <Container className="m-3">
                   <Row>
                     <StreetName
@@ -224,19 +261,17 @@ const ContactQuoteWithFormiks = () => {
                     />
                   </Row>
                 </Container>
-                <Container className="mt-5">
-                  <Row>
-                    <Col lg={6}>
-                      <FormGroup>
-                        <label className="fileupload">
-                          Choose file...Click the dropbox
-                        </label>
-                        <Field name="files" component={FileUpload} />
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                <Container>
+                  <DropZone
+                    id="files"
+                    name="files"
+                    label="File upload"
+                    placeholder="Try dropping some files here, or click to select files to upload."
+                    withClearButton
+                    multiple={true}
+                  />
+                  <ButtonComponent disable={isSubmitting} name="Submit" />
                 </Container>
-                <ButtonComponent disable={isSubmitting} name="Submit" />
               </Form>
             </Container>
           )}

@@ -11,18 +11,15 @@ const sendEmail = require("./utils/sendEmail");
 const errorHandler = require("./middleware/error");
 const fileUpload = require("express-fileupload");
 const proxy = require("http-proxy-middleware");
-const multer = require("multer");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
-const uploadImages = multer({
-  storage: multer.memoryStorage()
-});
 
 // Connect to database
 
 // Route files
 const contact = require("./routes/contact");
+const uploadWithMulter = require("./routes/index");
 const contactQuote = require("./routes/contactQuote");
 
 const app = express();
@@ -60,7 +57,7 @@ app.use(cors());
 // fileUpload
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 // Upload Endpoint
-const { uploadfile } = require("./upload");
+const { uploadfile } = require("./controllers/upload");
 
 app.post("/uploads", uploadfile);
 
@@ -69,6 +66,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Mount routers
 app.use("/api/v1/contact", contact);
+app.use("/api/v1/file", uploadWithMulter);
 app.use("/api/v1/quotes", contactQuote);
 ////////
 ////////

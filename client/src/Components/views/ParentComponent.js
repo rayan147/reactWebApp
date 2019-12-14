@@ -16,7 +16,7 @@ import Footer from "../Footer";
 import CarouselDisplay from "../Carousel";
 import ContactQuoteWithFormiks from "../Contact/ContactQuoteWithFormiks";
 import ContactWithFormik from "../Contact/ContactWithFormik";
-import ReactUploads from "../Contact/ReactUploads";
+
 function NoMatch() {
   let location = useLocation();
 
@@ -45,7 +45,6 @@ const ParentComponent = () => {
           <Route exact path="/contact" component={ContactWithFormik} />
           <Route exact path="/gallery" component={GallaryDisplay} />
           <Route exact path="/quotes" component={ContactQuoteWithFormiks} />
-          <Route exact path="/file" component={ReactUploads} />
         </>
         <Route path="*">
           <NoMatch />

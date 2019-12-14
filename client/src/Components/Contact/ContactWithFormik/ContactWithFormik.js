@@ -47,18 +47,19 @@ const ContactWithFormik = ({ title, onSubmit }) => {
             formData.append("email", values.email);
             formData.append("subject", values.subject);
             formData.append("phone", values.phone);
+            // formData.append("files", values.files);
             formData.append("designNote", values.designNote);
 
-            //loop over input array
+            //TODO*  see why  it does send the first iteratiton when only one files is being sent.
 
             for (let i = 0; i <= values.files.length; i++) {
-              formData.append(`files[${i}]`, values.files[i]);
+              formData.append("files", values.files[i]);
             }
 
             // WRITE AXIOS CALL TO THE SERVER HERE
 
             try {
-              (async () => {
+              async function sendFormDataToBackEnd() {
                 const response = await axios.post(
                   "/api/v1/contact",
                   formData,
@@ -78,7 +79,8 @@ const ContactWithFormik = ({ title, onSubmit }) => {
                 resetForm(initialValues);
 
                 return response;
-              })();
+              }
+              sendFormDataToBackEnd();
             } catch (err) {
               if (err.response.status === 500) {
                 return setFormMessage("There was a problem with the server");
@@ -137,23 +139,6 @@ const ContactWithFormik = ({ title, onSubmit }) => {
                     errros={errors.designNote}
                     className={touched.designNote && errors.designNote}
                   />
-
-                  {/* <Container className="mt-5">
-                    <Row>
-                      <Col lg={6}>
-                        <FormGroup>
-                          <label className="fileupload">
-                            Choose file...Click the dropbox
-                          </label>
-                          <Field
-                            id="files"
-                            name="files"
-                            component={FileUpload}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </Container> */}
                 </Row>
                 <DropZone
                   id="files"
