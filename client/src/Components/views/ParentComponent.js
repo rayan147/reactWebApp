@@ -25,6 +25,7 @@ const ParentComponent = () => {
       </div>
       <Switch>
         <>
+          {/* TODO* when wrong route enter it how display home page but it doesnt */}
           <Route exact path="/" component={Intro} />
           <Route exact path="/" component={CarouselDisplay} />
           <Route exact path="/" component={Flavour} />
