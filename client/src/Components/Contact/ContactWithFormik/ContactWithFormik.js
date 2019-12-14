@@ -1,15 +1,14 @@
-import React, { useState, useCallback } from "react";
-import { render } from "react-dom";
+import React, { useState } from "react";
+
 import axios from "axios";
 import { Form, DropZone } from "react-formik-ui";
 import "../../../Assets/css/Contact.css";
 
-import { Container, Row, Input, Col, FormGroup } from "reactstrap";
-import { Formik, Field } from "formik";
+import { Container, Row } from "reactstrap";
+import { Formik } from "formik";
 import { initialValues } from "./InitialValues";
 import { ContactUsSchema } from "../../Validations/ContactUsSchema";
 
-import IsCheckBox from "../FormComponent/IsCheckBox";
 import Name from "../FormComponent/Name";
 import Email from "../FormComponent/Email";
 import Phone from "../FormComponent/Phone";
@@ -21,9 +20,6 @@ import MessageApp from "../FormComponent/Message";
 import Inquery from "../Inquery";
 import ButtonComponent from "../ButtonComponent";
 import FadeIn from "../../Animations/FadeIn";
-import Submit from "../FormComponent/Submit";
-import FileUpload from "./FileUpload";
-import ReactUploads from "../ReactUploads";
 
 const ContactWithFormik = ({ title, onSubmit }) => {
   const [formMessage, setFormMessage] = useState("");
@@ -50,9 +46,7 @@ const ContactWithFormik = ({ title, onSubmit }) => {
             // formData.append("files", values.files);
             formData.append("designNote", values.designNote);
 
-            //TODO*  see why  it does send the first iteratiton when only one files is being sent.
-
-            for (let i = 0; i <= values.files.length; i++) {
+            for (let i = 0; i < values.files.length; i++) {
               formData.append("files", values.files[i]);
             }
 

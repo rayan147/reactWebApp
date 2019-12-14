@@ -2,7 +2,7 @@ import React from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
 import "../../Assets/css";
 
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import Navbar from "../Navbar";
 import Intro from "../Intro";
@@ -17,17 +17,6 @@ import CarouselDisplay from "../Carousel";
 import ContactQuoteWithFormiks from "../Contact/ContactQuoteWithFormiks";
 import ContactWithFormik from "../Contact/ContactWithFormik";
 
-function NoMatch() {
-  let location = useLocation();
-
-  return (
-    <div>
-      <h3>
-        No match for <code>{location.pathname}</code>
-      </h3>
-    </div>
-  );
-}
 const ParentComponent = () => {
   return (
     <>
@@ -46,9 +35,6 @@ const ParentComponent = () => {
           <Route exact path="/gallery" component={GallaryDisplay} />
           <Route exact path="/quotes" component={ContactQuoteWithFormiks} />
         </>
-        <Route path="*">
-          <NoMatch />
-        </Route>
       </Switch>
 
       <Footer />

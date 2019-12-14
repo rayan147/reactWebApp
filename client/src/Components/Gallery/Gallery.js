@@ -36,8 +36,4 @@ const Gallary = () => (
   </>
 );
 
-const style = {
-  // width: "17rem",
-  // height: "31rem"
-};
 export default React.memo(Gallary);

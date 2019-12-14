@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../../../Assets/css/Contact.css";
 
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { DropZone, Form } from "react-formik-ui";
-import { Container, Row, Col, FormGroup } from "reactstrap";
+import { Container, Row } from "reactstrap";
 
-// import { ContactQuoteSchema } from "../../Validations/ContactQuoteSchema";
+import { ContactQuoteSchema } from "../../Validations/ContactQuoteSchema";
 import { InitialValues, responseMessage } from "./InitialValues";
 
 import Message from "../../Message";
@@ -33,7 +33,6 @@ import IsCheckBox from "../FormComponent/IsCheckBox";
 import AdditonalNotes from "../FormComponent/AdditonalNotes";
 import StreetName from "../FormComponent/StreetName";
 import CitySate from "../FormComponent/CityState";
-import FileUpload from "../ContactWithFormik/FileUpload";
 const ContactQuoteWithFormiks = () => {
   const [formMessage, setFormMessage] = useState("");
   const displayMessage = formMessage ? <Message msg={formMessage} /> : null;
@@ -47,7 +46,7 @@ const ContactQuoteWithFormiks = () => {
         <Inquery />
         <Formik
           initialValues={InitialValues}
-          // validationSchema={ContactQuoteSchema}
+          validationSchema={ContactQuoteSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
 
@@ -85,9 +84,9 @@ const ContactQuoteWithFormiks = () => {
 
                 //loop over input array
 
-                // for (let i = 0; i <= values.files.length; i++) {
-                //   formData.append(`files[${i}]`, values.files[i]);
-                // }
+                for (let i = 0; i < values.files.length; i++) {
+                  formData.append("files", values.files[i]);
+                }
 
                 const response = await axios.post(quoteAPI, formData, {
                   headers: {
