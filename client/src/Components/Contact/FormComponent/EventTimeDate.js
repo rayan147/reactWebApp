@@ -5,7 +5,7 @@ const EventTimeDate = ({ className, touched, errors }) => {
   return (
     <>
       <FormGroupFieldComponet
-        Name="Event Time Date"
+        Name="Event Time"
         name="dateTime"
         type="time"
         colSize={6}

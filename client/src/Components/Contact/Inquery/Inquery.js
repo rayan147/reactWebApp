@@ -1,7 +1,7 @@
 import React from "react";
 
 import FunctionalSencondaryComp from "../../Layout/FunctionalSecondaryComp";
-function Inquery({ title }) {
+const  Inquery=({ title })=> {
   const divInquery = (
     <p className="lead">
       Please use our custom enquiry forms. For all quotes please be aware that

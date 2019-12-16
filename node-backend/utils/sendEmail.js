@@ -16,7 +16,9 @@ const sendEmail = async options => {
     subject: options.subject,
     text: options.message,
     html: options.output,
-    attachments: options.attachments
+    attachments: options.attachments,
+    replyTo: options.replyTo,
+    inReplyTo: options.inReplyTo
   };
 
   const info = await transporter.sendMail(message);

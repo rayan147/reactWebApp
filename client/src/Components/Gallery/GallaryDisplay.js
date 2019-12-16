@@ -2,17 +2,16 @@ import React, { Suspense } from "react";
 import { Spinner } from "reactstrap";
 
 const Gallary = React.lazy(async () => {
-  await new Promise(resolve => setTimeout(resolve, 500));
+  await new Promise(resolve => setTimeout(resolve, 700));
   return import("../Gallery/Gallery");
 });
-
-const GallaryDisplay = () => {
-  const styleSize = {
-    width: "4rem",
-    height: "4rem",
-    marginTop: "30rem"
-  };
-  const isLoadindSpinner = () => (
+const styleSize = {
+  width: "4rem",
+  height: "4rem",
+  marginTop: "30rem"
+};
+const IsLoadindSpinner = () => {
+  return (
     <div className="text-center">
       <h1 className="display-3 text-center">Loading ...</h1>
       <Spinner style={styleSize} type="grow" color="danger" />
@@ -20,10 +19,11 @@ const GallaryDisplay = () => {
       <Spinner style={styleSize} type="grow" color="danger" />
     </div>
   );
-
+};
+const GallaryDisplay = () => {
   return (
     <>
-      <Suspense fallback={isLoadindSpinner()}>
+      <Suspense fallback={<IsLoadindSpinner />}>
         <Gallary />
       </Suspense>
     </>

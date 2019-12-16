@@ -5,27 +5,33 @@ import { Container, Row, Col } from "reactstrap";
 import "../../Assets/css/Gallary.css";
 import FadeIn from "../Animations/FadeIn";
 import Header from "../Layout/Header";
+import uuid from "uuid";
 const Gallary = () => (
-  <>
-    <div className="mb-5">
+  <div style={styleMarginTop}>
+    <div style={styleMarginBottom} className="">
       <Header title="GALLERY" />
     </div>
     <FadeIn>
-      <Container fuild className="Gallery ">
+      <Container className="Gallery  container-fluid">
         <Row>
           {images.map(obj => (
-            <Col lg={3} md={4} sm={6} xs={7}>
-              <div className="text-center image" key={obj.src}>
-                <Imgix
-                  className="img shadow-lg p-1 mb-5 bg-white rounded"
-                  // width={50}
-                  height={400}
-                  src={obj.src}
-                  alt={obj.label}
-                  imgixParams={{ ar: "1.6: 2.4", fit: "crop" }}
-                  htmlAttributes={{ media: "(min-width: 320px)" }}
-                />
-
+            <Col lg={4} md={6} sm={6} xs={7} key={uuid.v4()}>
+              <div className="text-center Gallery__frame" key={obj.src}>
+                <Col>
+                  <Col>
+                    <Col className="col-sm-12 col-xs-12 col-md-8">
+                      <Imgix
+                        className="Gallery__frame--images shadow-lg p-1 mb-5 bg-white rounded"
+                        // width={50}
+                        height={400}
+                        src={obj.src}
+                        alt={obj.label}
+                        imgixParams={{ ar: "1.9: 2.8", fit: "crop" }}
+                        htmlAttributes={{ media: "(min-width: 320px)" }}
+                      />
+                    </Col>
+                  </Col>
+                </Col>
                 {/* <figcaption>{obj.label}</figcaption> */}
               </div>
             </Col>
@@ -33,7 +39,12 @@ const Gallary = () => (
         </Row>
       </Container>
     </FadeIn>
-  </>
+  </div>
 );
-
+const styleMarginTop = {
+  marginTop: "6rem"
+};
+const styleMarginBottom = {
+  marginBottom: "8rem"
+};
 export default React.memo(Gallary);

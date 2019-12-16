@@ -5,87 +5,86 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 27rem;
-  margin-bottom: -4rem;
 }
 
-.faFacebookF:hover {
+.Footer__faFacebookF:hover {
   background: white;
   border-bottom: 2px solid blue;
   border-radius: 2rem;
   cursor: pointer;
-  transition: transform 300ms ease-out, opacity 250ms ease-out,
-    -webkit-transform 300ms ease-out;
-  transform: scale(1.3);
+  transition: transform 450ms ease-out, opacity 450ms ease-out,
+    -webkit-transform 450ms ease-out;
+  transform: scale(1.1);
   transform-origin: center center;
   justify-content: space-evenly;
   cursor: pointer;
 }
-.faInstagram:hover {
+.Footer__faInstagram:hover {
   background: white;
   border-bottom: 2px solid red;
   cursor: pointer;
   border-radius: 2rem;
   width: 10%;
-  transition: transform 300ms ease-out, opacity 250ms ease-out,
-    -webkit-transform 300ms ease-out;
-  transform: scale(1.3);
+  transition: transform 450ms ease-out, opacity 450ms ease-out,
+    -webkit-transform 450ms ease-out;
+  transform: scale(1.1);
   transform-origin: center center;
   cursor: pointer;
 }
-.faTwitter:hover {
+.Footer__faTwitter:hover {
   background: white;
   border-bottom: 2px solid teal;
   cursor: pointer;
   border-radius: 3rem;
   width: 10%;
-  transition: transform 300ms ease-out, opacity 250ms ease-out,
-    -webkit-transform 300ms ease-out;
+  transition: transform 450ms ease-out, opacity 450ms ease-out,
+    -webkit-transform 450ms ease-out;
   transform: scale(1.3);
   transform-origin: center center;
   cursor: pointer;
 }
-.faLinkedinIn:hover {
+.Footer__faLinkedinIn:hover {
   background: white;
   border-bottom: 2px solid blue;
   cursor: pointer;
   border-radius: 3rem;
   width: 10%;
-  transition: transform 300ms ease-out, opacity 250ms ease-out,
-    -webkit-transform 300ms ease-out;
-  transform: scale(1.3);
+  transition: transform 450ms ease-out, opacity 450ms ease-out,
+    -webkit-transform 450ms ease-out;
+  transform: scale(1.1);
   transform-origin: center center;
 
   cursor: pointer;
 }
-.ffaEnvelope:hover {
+.Footer__ffaEnvelope:hover {
   background: white;
   border-bottom: 2px solid red;
   cursor: pointer;
   border-radius: 3rem;
-  transition: transform 300ms ease-out, opacity 250ms ease-out,
-    -webkit-transform 300ms ease-out;
+  transition: transform 450ms ease-out, opacity 450ms ease-out,
+    -webkit-transform 450ms ease-out;
   transform: scale(1.3);
   transform-origin: center center;
   cursor: pointer;
 }
-.faEnvelope:hover {
+.Footer__faEnvelope:hover {
   background: white;
   border-bottom: 2px solid red;
   cursor: pointer;
   border-radius: 3rem;
-  transition: transform 300ms ease-out, opacity 250ms ease-out,
-    -webkit-transform 300ms ease-out;
-  transform: scale(1.3);
+  transition: transform 450ms ease-out, opacity 450ms ease-out,
+    -webkit-transform 450ms ease-out;
+  transform: scale(1.1);
   cursor: pointer;
 }
-.faPhone:hover {
+.Footer__faPhone:hover {
   background: white;
   border-bottom: 2px solid black;
   cursor: pointer;
   border-radius: 3rem;
-  transition: transform 300ms ease-out, opacity 250ms ease-out,
-    -webkit-transform 300ms ease-out;
-  transform: scale(1.3);
+  transition: transform 450ms ease-out, opacity 450ms ease-out,
+    -webkit-transform 450ms ease-out;
+  transform: scale(1.1);
   transform-origin: center center;
   cursor: pointer;
 }

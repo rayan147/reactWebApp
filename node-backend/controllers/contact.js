@@ -71,12 +71,17 @@ exports.contact = (req, res, next) => {
     <p class="title fontSize">${designNote}</p>
     </div>
   `;
+  let replyTo = email;
+  let inReplyTo = `Hello ${name} <br/>
+   this is a test`;
   try {
     sendEmail({
       email,
       subject,
       attachments,
-      output
+      output,
+      replyTo,
+      inReplyTo
     });
     res.status(200).json({
       success: true,
@@ -106,6 +111,7 @@ exports.contactQuote = (req, res, next) => {
     filling,
     soak,
     flavour,
+    state,
     numberOfGuest,
     isFirstTimeCustumer,
     isReturningCustumer
@@ -177,8 +183,9 @@ exports.contactQuote = (req, res, next) => {
       <li>Event Type: ${eventType}  </li>
       <li>Collection/Delivery Date: ${deliveryDate}  </li>
       <li>Collection/Delivery Time: ${deliveryTime}  </li>
-      <li>location: ${location} </li>
-      <li>Stret Address: ${stretAddress} </li>
+      <li>Address: ${stretAddress} </li>
+      <li>City: ${location} </li>
+      <li>State: ${state} </li>
       <li>filling: ${filling} </li>
       <li>Soaks:${soak}</li>
       <li>flavour: ${flavour} </li>

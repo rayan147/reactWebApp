@@ -1,13 +1,13 @@
 .Navbarlink {
   margin: 0;
-  font-family: "Kalam", cursive;
+  font-family: "Kalam";
   text-transform: capitalize;
   margin-top: 1.7rem;
   font-weight: 400;
 }
 
-.link {
-  margin: 7px;
+.Navbar--link {
+  margin: 3px;
   padding: 2px;
   font-size: 1.7rem;
 }
@@ -19,22 +19,7 @@
   font-weight: 500;
 }
 #navbar-brand:hover {
-  border-bottom: 3px solid peachpuff;
-  transition: all 0.5s ease-in-out;
-}
-.gallery:hover {
-  border-bottom: 3px solid peachpuff;
-  transition: all 0.5s ease-in-out;
-}
-.about:hover {
-  border-bottom: 3px solid peachpuff;
-  transition: all 0.5s ease-in-out;
-}
-.contact:hover {
-  border-bottom: 3px solid peachpuff;
-  transition: all 0.5s ease-in-out;
-}
-.quotes:hover {
-  border-bottom: 3px solid peachpuff;
-  transition: all 0.5s ease-in-out;
+  border-bottom: 3px solid red;
+  transition: transform 550ms ease-out, opacity 550ms ease-out,
+    -webkit-transform 550ms ease-out;
 }

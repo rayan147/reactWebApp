@@ -32,18 +32,21 @@ import MessageApp from "../FormComponent/Message";
 import IsCheckBox from "../FormComponent/IsCheckBox";
 import AdditonalNotes from "../FormComponent/AdditonalNotes";
 import StreetName from "../FormComponent/StreetName";
-import CitySate from "../FormComponent/CityState";
+import City from "../FormComponent/City";
+import State from "../FormComponent/State";
+import DownArrow from "../../DownArrow/";
 const ContactQuoteWithFormiks = () => {
   const [formMessage, setFormMessage] = useState("");
   const displayMessage = formMessage ? <Message msg={formMessage} /> : null;
 
   return (
-    <>
-      <Container className="mb-5">
+    <div style={styleMarginTop} className="Contact">
+      <Container className=" mb-5">
         <Header title="CUSTOM QUOTES" />
       </Container>
       <FadeIn>
         <Inquery />
+        <DownArrow href="#contactquote" color="black" className="DownArrow" />
         <Formik
           initialValues={InitialValues}
           validationSchema={ContactQuoteSchema}
@@ -59,6 +62,7 @@ const ContactQuoteWithFormiks = () => {
                 formData.append("email", values.email);
                 formData.append("subject", values.subject);
                 formData.append("phone", values.phone);
+                formData.append("state", values.state);
                 formData.append("message", values.message);
                 formData.append("eventDate", values.eventDate);
                 formData.append("dateTime", values.dateTime);
@@ -118,9 +122,9 @@ const ContactQuoteWithFormiks = () => {
             isSubmitting
           }) => (
             <Container style={styleMargin}>
-              {displayMessage}
               <Form
-                className="shadow-lg p-5 mb-5 bg-white rounded"
+                id="contactquote"
+                className="Contact__label shadow-lg p-5 mb-5 bg-white rounded"
                 mode="structured"
               >
                 <Row form>
@@ -168,7 +172,9 @@ const ContactQuoteWithFormiks = () => {
                     touched={touched.eventType}
                     message={errors.eventType}
                     className={
-                      touched.eventType && errors.eventType ? "has-error" : null
+                      touched.eventType && errors.eventType
+                        ? "Contact--has__error"
+                        : null
                     }
                   />
                   <NumberOfGuest
@@ -176,7 +182,7 @@ const ContactQuoteWithFormiks = () => {
                     message={errors.numberOfGuest}
                     className={
                       touched.numberOfGuest && errors.numberOfGuest
-                        ? "has-error"
+                        ? "Contact--has__error"
                         : null
                     }
                   />
@@ -184,21 +190,47 @@ const ContactQuoteWithFormiks = () => {
                     touched={touched.flavour}
                     message={errors.flavour}
                     className={
-                      touched.flavour && errors.flavour ? "has-error" : null
+                      touched.flavour && errors.flavour
+                        ? "Contact--has__error"
+                        : null
                     }
                   />
                   <Soak
                     touched={touched.soak}
                     message={errors.soak}
-                    className={touched.soak && errors.soak ? "has-error" : null}
+                    className={
+                      touched.soak && errors.soak ? "Contact--has__error" : null
+                    }
                   />
                   <Filling
                     className={
-                      touched.filling && errors.filling ? "has-error" : null
+                      touched.filling && errors.filling
+                        ? "Contact--has__error"
+                        : null
                     }
                     touched={touched.filling}
                     message={errors.filling}
                   />
+                  <Container>
+                    <Row form>
+                      <StreetName
+                        className={touched.stretAddress && errors.stretAddress}
+                        touched={touched.stretAddress}
+                        errors={errors.stretAddress}
+                      />
+
+                      <City
+                        className={touched.location && errors.location}
+                        touched={touched.location}
+                        errors={errors.location}
+                      />
+                      <State
+                        className={touched.state && errors.state}
+                        touched={touched.state}
+                        errors={errors.state}
+                      />
+                    </Row>
+                  </Container>
                 </Row>
                 <MessageApp
                   Name="Design Notes"
@@ -208,19 +240,7 @@ const ContactQuoteWithFormiks = () => {
                 />
 
                 <Container className="m-3">
-                  <Row>
-                    <StreetName
-                      className={touched.stretAddress && errors.stretAddress}
-                      touched={touched.stretAddress}
-                      errors={errors.stretAddress}
-                    />
-
-                    <CitySate
-                      className={touched.location && errors.location}
-                      touched={touched.location}
-                      errors={errors.location}
-                    />
-                  </Row>
+                  <Row></Row>
                 </Container>
                 <Container>
                   <Row>
@@ -232,8 +252,8 @@ const ContactQuoteWithFormiks = () => {
                   </Row>
                 </Container>
 
-                <Container className="m-5">
-                  <Row>
+                <Container className="my-3">
+                  <Row form>
                     <IsCheckBox
                       value="isReturningCustumer"
                       nameTitle=" Are you a returning customer?"
@@ -242,7 +262,7 @@ const ContactQuoteWithFormiks = () => {
                       className={
                         touched.isFirstTimeCustumer &&
                         errors.isFirstTimeCustumer
-                          ? "has-error"
+                          ? "Contact--has__error"
                           : null
                       }
                     />
@@ -254,7 +274,7 @@ const ContactQuoteWithFormiks = () => {
                       className={
                         touched.isFirstTimeCustumer &&
                         errors.isFirstTimeCustumer
-                          ? "has-error"
+                          ? "Contact--has__error"
                           : null
                       }
                     />
@@ -270,13 +290,14 @@ const ContactQuoteWithFormiks = () => {
                     multiple={true}
                   />
                   <ButtonComponent disable={isSubmitting} name="Submit" />
+                  {displayMessage}
                 </Container>
               </Form>
             </Container>
           )}
         </Formik>
       </FadeIn>
-    </>
+    </div>
   );
 };
 
@@ -284,5 +305,8 @@ const styleMargin = {
   marginTop: "4rem",
   marginBottom: "3rem"
 };
-
+const styleMarginTop = {
+  marginTop: "10rem",
+  marginBottom: "10rem"
+};
 export default ContactQuoteWithFormiks;

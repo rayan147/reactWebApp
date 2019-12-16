@@ -105,5 +105,10 @@ export const images = [
     id: uuid.v4(),
     src: "https://adriana.imgix.net/cake24.jpg",
     label: "Sample image 21"
+  },
+  {
+    id: uuid.v4(),
+    src: "https://adriana.imgix.net/cake24.jpg",
+    label: "Sample image 21"
   }
 ];

@@ -2,7 +2,8 @@ import React from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
 import "../../Assets/css";
 
-import { Switch, Route } from "react-router-dom";
+
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Navbar from "../Navbar";
 import Intro from "../Intro";
@@ -17,24 +18,31 @@ import CarouselDisplay from "../Carousel";
 import ContactQuoteWithFormiks from "../Contact/ContactQuoteWithFormiks";
 import ContactWithFormik from "../Contact/ContactWithFormik";
 
+
 const ParentComponent = () => {
   return (
     <>
-      <div style={style}>
+      <div>
         <Navbar />
       </div>
       <Switch>
         <>
-          {/* TODO* when wrong route enter it how display home page but it doesnt */}
-          <Route exact path="/" component={Intro} />
-          <Route exact path="/" component={CarouselDisplay} />
-          <Route exact path="/" component={Flavour} />
-          <Route exact path="/" component={Soaks} />
-          <Route exact path="/" component={Filling} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/contact" component={ContactWithFormik} />
-          <Route exact path="/gallery" component={GallaryDisplay} />
-          <Route exact path="/quotes" component={ContactQuoteWithFormiks} />
+        <Route exact strict path="/" component={Intro} />
+        <Route exact strict path="/" component={CarouselDisplay} />
+        <Route exact strict path="/" component={Flavour} />
+        <Route exact strict path="/" component={Soaks} />
+        <Route exact strict path="/" component={Filling} />
+        <Route exact strict path="/about" component={About} />
+        <Route exact strict path="/contact" component={ContactWithFormik} />
+        <Route exact strict path="/gallery" component={GallaryDisplay} />  
+        <Route 
+            exact
+            strict
+            path="/quotes"
+            component={ContactQuoteWithFormiks}
+          />
+       
+          <Redirect from="*" to="/" />
         </>
       </Switch>
 
@@ -42,7 +50,5 @@ const ParentComponent = () => {
     </>
   );
 };
-const style = {
-  marginBootom: "43rem"
-};
+
 export default ParentComponent;

@@ -25,6 +25,7 @@ const About = props => {
   );
 };
 const styleMarginButoom = {
+  marginTop: "10rem",
   marginBottom: "10rem"
 };
 export default React.memo(About);

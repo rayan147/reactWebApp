@@ -25,43 +25,44 @@ const Footer = () => {
         >
           <Row>
             <ColIconComponent
-              className="faFacebookF"
+              className="Footer__faFacebookF"
               color="blue"
               icon={faFacebookF}
             />
             <ColIconComponent
-              className="faInstagram"
+              className="Footer__faInstagram"
               color="red"
               icon={faInstagram}
               href="https://www.instagram.com/notoriousbakes/?hl=en"
             />
             <ColIconComponent
-              className="faTwitter"
+              className="Footer__faTwitter"
               color="teal"
               icon={faTwitter}
             />
 
             <ColIconComponent
-              className="faLinkedinIn"
+              className="Footer__faLinkedinIn"
               color="blue"
               icon={faLinkedinIn}
             />
             <ColIconComponent
-              className="faEnvelope"
+              className="Footer__faEnvelope"
               color="red"
               icon={faEnvelope}
               href="mailto:adriana@notoriousbakes.com"
             />
             <ColIconComponent
-              className="faPhone"
+              className="Footer__faPhone"
               color="black"
               icon={faPhone}
               href="tel:2019821533"
             />
             <ColIconComponent
-              className="faPhone"
+              className="Footer__faPhone"
               color="black"
               icon={faLongArrowAltUp}
+              href="/"
             />
 
             <GetCurrentDateYear />

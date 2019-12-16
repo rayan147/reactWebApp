@@ -23,35 +23,19 @@ class PortfolioNavbarComponent extends Component {
       <div className="Navbarlink">
         <Navbar light expand="md">
           <NavbarBrand className="mr-auto mb-4px" href="/">
-            <h3 id="navbar-brand" className="mb-0 ">
+            <h3 id="navbar-brand" className="mb-3 ">
               Adriana G. Noto
             </h3>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto " navbar>
-              <Navbarlink
-                href="/about"
-                className="about"
-                name="About"
-              ></Navbarlink>
-              <Navbarlink
-                href="/contact"
-                className="contact"
-                name="Contact"
-              ></Navbarlink>
+              <Navbarlink to="about" className="" name="About"></Navbarlink>
+              <Navbarlink to="contact" className="" name="Contact"></Navbarlink>
 
-              <Navbarlink
-                href="/quotes"
-                className="quotes"
-                name="Quote"
-              ></Navbarlink>
+              <Navbarlink to="quotes" className="" name="Quote"></Navbarlink>
 
-              <Navbarlink
-                href="/gallery"
-                className="gallery"
-                name="Gallery"
-              ></Navbarlink>
+              <Navbarlink to="gallery" className="" name="Gallery"></Navbarlink>
             </Nav>
           </Collapse>
         </Navbar>

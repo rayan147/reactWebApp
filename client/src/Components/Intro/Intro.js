@@ -16,7 +16,7 @@ const Intro = () => {
   );
 
   return (
-    <>
+    <div style={styleMarginTop}>
       <Container className="mb-5 p-0">
         <Header title="Notorious Bakes" />
         <Header title="Adriana G. Noto" />
@@ -30,8 +30,10 @@ const Intro = () => {
           icon={faArrowDown}
         />
       </Container>
-    </>
+    </div>
   );
 };
-
+const styleMarginTop = {
+  marginTop: "9rem"
+};
 export default React.memo(Intro);

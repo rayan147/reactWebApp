@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const Message = ({ msg }) => {
   return (
     <div
-      className="alert alert-success alert-dismissible fade show p-3"
+      className="alert alert-success alert-dismissible fade show p-3 text-dark"
       role="alert"
     >
       {msg}
@@ -12,7 +12,7 @@ const Message = ({ msg }) => {
 };
 
 Message.propTypes = {
-  msg: PropTypes.string.isRequired
+  msg: PropTypes.object.isRequired
 };
 
 export default Message;

@@ -6,7 +6,7 @@ import "../../../Assets/css/Contact.css";
 
 import { Container, Row } from "reactstrap";
 import { Formik } from "formik";
-import { initialValues } from "./InitialValues";
+import { initialValues,responseMessage } from "./InitialValues";
 import { ContactUsSchema } from "../../Validations/ContactUsSchema";
 
 import Name from "../FormComponent/Name";
@@ -20,18 +20,19 @@ import MessageApp from "../FormComponent/Message";
 import Inquery from "../Inquery";
 import ButtonComponent from "../ButtonComponent";
 import FadeIn from "../../Animations/FadeIn";
+import DownArrow from "../../DownArrow/";
 
 const ContactWithFormik = ({ title, onSubmit }) => {
   const [formMessage, setFormMessage] = useState("");
 
   return (
-    <>
+    <div style={styleMarginTop} className="Contact">
       <Container className="mb-5">
         <Header title="CONTACT US" />
       </Container>
       <FadeIn>
         <Inquery />
-
+        <DownArrow href="#contact" color="black" className="DownArrow" />
         <Formik
           initialValues={initialValues}
           validationSchema={ContactUsSchema}
@@ -66,7 +67,7 @@ const ContactWithFormik = ({ title, onSubmit }) => {
                 );
                 console.log(response);
                 setFormMessage(
-                  "Your message has been submitted !!.Please allow us 24 hour for a response."
+                  responseMessage
                 );
 
                 setSubmitting(false);
@@ -97,11 +98,10 @@ const ContactWithFormik = ({ title, onSubmit }) => {
             resetForm
           }) => (
             <Container style={styleMargin}>
-              <br />
-              {formMessage ? <Message msg={formMessage} /> : null}
               <Form
+                id="contact"
                 mode="structured"
-                className="shadow-lg p-5 mb-5 bg-white rounded"
+                className="Contact__label shadow-lg p-5 mb-5 bg-white rounded"
                 method="post"
                 encType="multipart/form-data"
               >
@@ -143,17 +143,22 @@ const ContactWithFormik = ({ title, onSubmit }) => {
                   multiple={true}
                 />
                 <ButtonComponent disable={isSubmitting} name="Submit" />
+                {formMessage ? <Message msg={formMessage} /> : null}
               </Form>
             </Container>
           )}
         </Formik>
       </FadeIn>
-    </>
+    </div>
   );
 };
 
 const styleMargin = {
-  marginTop: "3rem",
+  marginTop: "10rem",
   marginBottom: "3rem"
+};
+const styleMarginTop = {
+  marginTop: "10rem",
+  marginBottom: "10rem"
 };
 export default React.memo(ContactWithFormik);

@@ -2,3 +2,7 @@
   height: 9vh !important ;
   width: 100vw;
 }
+.Carousel--wrapper {
+  width: 100%; /* for example */
+  margin: auto;
+}

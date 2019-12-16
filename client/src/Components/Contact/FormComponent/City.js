@@ -1,14 +1,14 @@
 import React from "react";
-import FormGroupFieldComponet from "../FormGroupFieldComponet";
+import FormGroupFieldComponet from "../FormGroupFieldComponet/FormGroupFieldComponet";
 
-const CitySate = ({ className, touched, errors }) => {
+const City = ({ className, touched, errors }) => {
   return (
     <>
       <FormGroupFieldComponet
-        Name="City State "
+        Name="City "
         type="input"
         name="location"
-        colSize={6}
+        colSize={3}
         Touched={touched}
         Errors={errors}
         className={className}
@@ -16,4 +16,4 @@ const CitySate = ({ className, touched, errors }) => {
     </>
   );
 };
-export default CitySate;
+export default City;

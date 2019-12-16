@@ -1,17 +1,23 @@
 import React from "react";
-import { NavItem, NavLink, Col, Row, Container } from "reactstrap";
+import { NavItem, Col, Row, Container } from "reactstrap";
+import { NavLink } from "react-router-dom";
 import "../../Assets/css/Navbar.css";
 
-const Navbarlink = ({ href, name, className }) => {
+const Navbarlink = ({ to, name, className }) => {
   return (
     <Container>
       <Row>
         <Col>
-          <NavItem className="Navbarlink">
+          <NavItem className="Navbarlink text-dark">
             <NavLink
-              active={true}
-              className={`${className} link`}
-              href={`${href}`}
+              style={{ color: "inherit", textDecoration: "inherit" }}
+              className={`${className} Navbar--link`}
+              activeStyle={{
+                fontWeight: "light",
+                color: "red"
+              }}
+              strict
+              to={`/${to}`}
             >
               {name}
             </NavLink>

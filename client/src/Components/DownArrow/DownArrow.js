@@ -2,10 +2,10 @@ import React from "react";
 import { Row, Col, NavLink, Container } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSpring, animated, config } from "react-spring";
-
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 const DownArrow = ({ color, icon, className, href }) => {
   const props = useSpring({
-    delay: 1000,
+    delay: 1300,
     to: [{ opacity: 1, color: "trasnparent" }],
     from: { opacity: 0.4 },
     entered: {},
@@ -14,7 +14,7 @@ const DownArrow = ({ color, icon, className, href }) => {
 
   return (
     <animated.div style={props}>
-      <div className="text-center">
+      <div className="justify-content-center">
         <Container className="text-center">
           <Row>
             <Col className="text-center mb-5">
@@ -23,7 +23,7 @@ const DownArrow = ({ color, icon, className, href }) => {
                   className={className}
                   color={color}
                   size="5x"
-                  icon={icon}
+                  icon={faArrowDown}
                 ></FontAwesomeIcon>
               </NavLink>
             </Col>

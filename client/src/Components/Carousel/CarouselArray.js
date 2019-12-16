@@ -17,12 +17,12 @@ export const items = [
   },
   {
     id: uuid.v4(),
-    src: "https://adriana.imgix.net/cake14.jpg",
+    src: "https://adriana.imgix.net/cake16.jpg",
     caption: "Sample image 9"
   },
   {
     id: uuid.v4(),
-    src: "https://adriana.imgix.net/cake49.jpg",
+    src: "https://adriana.imgix.net/cake15.jpg",
     caption: "Sample image 10"
   }
 ];

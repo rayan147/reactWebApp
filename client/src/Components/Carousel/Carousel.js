@@ -8,6 +8,7 @@ import {
   Container
 } from "reactstrap";
 import { items } from "./CarouselArray";
+import "../../Assets/css/Carousel.css";
 import Imgix from "react-imgix";
 const CarouselIntro = props => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -38,14 +39,14 @@ const CarouselIntro = props => {
         key={item.id}
       >
         <Imgix
-          className="img shadow-lg p-1 mb-5 bg-white rounded"
-          width={1300}
-          style={styleImg}
-          height={700}
+          className="Carousel--wrapper img shadow-lg p-1 mb-5 bg-white rounded m-auto "
+          width={1050}
+          sizes="calc(10% - 10px)"
+          height={750}
           src={item.src}
           alt={item.altText}
-          imgixParams={{ ar: "1.6: 2.1", fit: "crop" }}
-          htmlAttributes={{ media: "(min-width: 320px)" }}
+          imgixParams={{ ar: "2: 2", fit: "crop" }}
+          htmlAttributes={{ media: "(min-width: 420px)" }}
         />
 
         <CarouselCaption
@@ -81,10 +82,7 @@ const CarouselIntro = props => {
     </div>
   );
 };
-const styleImg = {
-  height: "79vh",
-  width: "100vw"
-};
+
 const marginTopStyle = {
   marginTop: "14rem"
 };

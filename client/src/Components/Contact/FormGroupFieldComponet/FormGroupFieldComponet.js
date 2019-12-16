@@ -30,7 +30,7 @@ const FormGroupFieldComponet = ({
             id={Name}
             style={style}
             placeholder={Name}
-            className={className && className ? "has-error" : null}
+            className={className && className ? "Contact--has__error" : null}
           />
           <Error touched={Touched} message={Errors} />
         </FormGroup>

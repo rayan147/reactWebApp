@@ -6,7 +6,7 @@ const StreetName = ({ className, touched, errors }) => {
   return (
     <>
       <FormGroupFieldComponet
-        Name="Street Address"
+        Name="Address"
         type="input"
         name="stretAddress"
         colSize={6}

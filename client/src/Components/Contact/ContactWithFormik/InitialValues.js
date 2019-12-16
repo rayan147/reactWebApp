@@ -1,6 +1,7 @@
+import React from "react";
 export const initialValues = {
   name: "Test name",
-  email: "email@email.com",
+  email: "rayan361@gmail.com",
   subject: "it works",
   phone: "5565644444",
   designNote: "it woorksss",
@@ -8,4 +9,15 @@ export const initialValues = {
   isFirstTimeCustumer: false,
   isReturningCustumer: false
 };
-// <li>Images:<img src="data:image/*;base64,${base64Image}"/></li>;
+const styleMessage={
+  fontWeight:"400",
+  fontSize:"1.5rem",
+  color:"black"
+
+}
+export const responseMessage =(
+<>
+  <p style={styleMessage}className="lead text-center">Your message has been submitted !!.Please allow us a 24 hour for a response.</p>
+  </>
+  )
+ 

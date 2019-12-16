@@ -5,7 +5,7 @@ const ButtonComponent = ({ disabled, name, onSubmit }) => {
     <>
       <button
         onSubmit={onSubmit}
-        className="btn btn-primary rounded-pill  btn-block shadow-sm p-3 mb-5  rounded"
+        className="Contact__btn btn btn-primary rounded-pill  btn-block shadow-sm p-3 mb-5  rounded"
         type="submit"
         disabled={disabled}
       >
