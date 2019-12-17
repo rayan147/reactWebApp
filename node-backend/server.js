@@ -7,16 +7,17 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const cors = require("cors");
-const sendEmail = require("../utils/sendEmail");
+const sendEmail = require("./utils/sendEmail");
 const errorHandler = require("./middleware/error");
 const fileUpload = require("express-fileupload");
 const proxy = require("http-proxy-middleware");
+const connToMongoDB = require("./config/db");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
 
 // Connect to database
-
+connToMongoDB();
 // Route files
 const contact = require("./routes/contact");
 const uploadWithMulter = require("./routes/index");

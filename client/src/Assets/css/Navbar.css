@@ -19,7 +19,7 @@
   font-weight: 500;
 }
 #navbar-brand:hover {
-  border-bottom: 3px solid red;
+  border-bottom: 3px solid lightblue;
   transition: transform 550ms ease-out, opacity 550ms ease-out,
     -webkit-transform 550ms ease-out;
 }

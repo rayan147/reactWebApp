@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "server": "nodemon server.js --ignore './client/'",
-    "client": "npm start --prefix client",
+    "client-install": "npm install --prefix ../client",
+    "server": "nodemon server.js --ignore '../client/'",
+    "client": "npm start --prefix ../client",
     "start": "NODE_ENV=production node server",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
