@@ -40,9 +40,9 @@ const CarouselIntro = props => {
       >
         <Imgix
           className="Carousel--wrapper img shadow-lg p-1 mb-5 bg-white rounded m-auto "
-          width={1050}
+          width={350}
           sizes="calc(10% - 10px)"
-          height={750}
+          height={650}
           src={item.src}
           alt={item.altText}
           imgixParams={{ ar: "2: 2", fit: "crop" }}
