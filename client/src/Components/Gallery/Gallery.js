@@ -22,7 +22,6 @@ const Gallary = () => (
                     <Col className="col-sm-12 col-xs-12 col-md-8">
                       <Imgix
                         className="Gallery__frame--images shadow-lg p-1 mb-5 bg-white rounded"
-                        // width={50}
                         height={400}
                         src={obj.src}
                         alt={obj.label}
@@ -32,7 +31,6 @@ const Gallary = () => (
                     </Col>
                   </Col>
                 </Col>
-                {/* <figcaption>{obj.label}</figcaption> */}
               </div>
             </Col>
           ))}

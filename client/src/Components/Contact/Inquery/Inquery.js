@@ -1,7 +1,7 @@
 import React from "react";
 
 import FunctionalSencondaryComp from "../../Layout/FunctionalSecondaryComp";
-const  Inquery=({ title })=> {
+const Inquery = ({ title }) => {
   const divInquery = (
     <p className="lead">
       Please use our custom enquiry forms. For all quotes please be aware that
@@ -12,10 +12,11 @@ const  Inquery=({ title })=> {
   );
   const divDelivery = (
     <p className="lead">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-      deleniti veniam, exercitationem consequatur similique, itaque, voluptates
-      aliquam beatae ut aperiam ab nesciunt minus ipsum sequi! Optio fugiat ut
-      quo harum!
+      We provide a delivery service with all of our orders. Prices vary
+      depending on the distance from from our studio in Bergen County. Any cake
+      placed outside during an event has the possibility of melting or deforming
+      due to the heat. We are not liable for a cake once it has been delivered
+      or picked up.
     </p>
   );
 
@@ -31,6 +32,6 @@ const  Inquery=({ title })=> {
       />
     </>
   );
-}
+};
 
 export default React.memo(Inquery);

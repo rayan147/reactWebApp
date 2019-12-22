@@ -1,16 +1,14 @@
-# base image
-FROM node:latest
+FROM node:lts-slim
 
-# set working directory
-WORKDIR /client
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY . .
+COPY package*.json ./
+RUN npm install
+RUN npm install react-router-dom
+RUN npm install react-scripts start
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+COPY . .
+EXPOSE 3000
 
-# install and cache app dependencies
-COPY package.json /client/package.json
-RUN npm install --silent
-RUN npm install react-scripts@3.0.1 -g --silent
 
-# start app
-CMD ["npm", "start"]

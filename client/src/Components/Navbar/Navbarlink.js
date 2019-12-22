@@ -14,7 +14,7 @@ const Navbarlink = ({ to, name, className }) => {
               className={`${className} Navbar--link`}
               activeStyle={{
                 fontWeight: "light",
-                color: "red"
+                color: "blue"
               }}
               strict
               to={`/${to}`}

@@ -1,12 +1,14 @@
-FROM node:latest
+FROM node:lts-slim
 
-# Create app directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-
-# Install app dependencies
+COPY . .
 COPY package*.json ./
-
+RUN npm install nodemon
 RUN npm install
+COPY . .
 
 EXPOSE 5000
-CMD [ "npm", "run dev" ]
+
+
+CMD [ "npm", "run", "dev" ]

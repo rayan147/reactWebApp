@@ -97,7 +97,7 @@ const ContactQuoteWithFormiks = () => {
                     "Content-Type": "multipart/form-data"
                   }
                 });
-                console.log(response);
+
                 setFormMessage(responseMessage);
                 resetForm();
                 setSubmitting(false);

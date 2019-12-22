@@ -1,118 +1,78 @@
-import React from "react";
-import uuid from "uuid";
+import React, { useEffect } from "react";
+import FillingModel from "./FillingModel";
+import "../../Assets/css/Filling.css";
+
 import Header from "../Layout/Header";
-import { Container, Row, Col } from "reactstrap";
+import {
+  Container,
+  Row,
+  ListGroup,
+  ListGroupItem,
+  ButtonToggle
+} from "reactstrap";
+import { getFillings, deleteFilling } from "../../actions/fillingActions";
+import { connect } from "react-redux";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const Filling = props => {
-  const fillingFirstCol = [
-    { id: uuid.v4(), name: "Cinnamon Buttercream" },
+  const API_DATA_FILLINGS = async () => {
+    return await props.getFillings();
+  };
 
-    { id: uuid.v4(), name: "Mango" },
+  useEffect(() => {
+    API_DATA_FILLINGS();
+  }, []);
 
-    { id: uuid.v4(), name: "Peach" },
+  const onDeleteClick = async id => {
+    return await props.deleteFilling(id);
+  };
 
-    { id: uuid.v4(), name: "Bananas" },
+  const { fillings } = props.filling;
 
-    { id: uuid.v4(), name: "Smores" },
-
-    { id: uuid.v4(), name: "Cheesecake" },
-
-    { id: uuid.v4(), name: "PB&J" },
-
-    { id: uuid.v4(), name: "Ferrero Rocher Buttercream" },
-    { id: uuid.v4(), name: "Espresso Buttercream" }
-  ];
-  const fillingSecondCol = [
-    { id: uuid.v4(), name: "Nutella" },
-
-    { id: uuid.v4(), name: "Berries" },
-    { id: uuid.v4(), name: "Oreos & Nutella" },
-
-    { id: uuid.v4(), name: "Cream Cheese" },
-
-    { id: uuid.v4(), name: "Lemon Curd" },
-
-    { id: uuid.v4(), name: "Almond Cream" },
-
-    { id: uuid.v4(), name: "Coconut Buttercream/Cream" },
-
-    { id: uuid.v4(), name: "Dulce de Leche" },
-
-    { id: uuid.v4(), name: "Caramel/Salted Caramel " },
-
-    { id: uuid.v4(), name: "Lime Curd" }
-  ];
-  const fillingThirdCol = [
-    { id: uuid.v4(), name: "Jams" },
-
-    { id: uuid.v4(), name: "Oreos" },
-
-    { id: uuid.v4(), name: "Peanut Butter" },
-
-    { id: uuid.v4(), name: "Cookie Dough" },
-
-    { id: uuid.v4(), name: "Chocolate Chip" },
-
-    { id: uuid.v4(), name: "Pineapple/Pineapple Curd" },
-
-    { id: uuid.v4(), name: "Chocolate Ganache" },
-
-    { id: uuid.v4(), name: "Lavender Buttercream" },
-
-    { id: uuid.v4(), name: "Cannoli Cream" },
-
-    { id: uuid.v4(), name: "Pecan Praline" }
-  ];
-  const mappedFillingThirdCol = fillingThirdCol.map(mapped => (
-    <ul key={mapped.id} className="list-group list-group-flush">
-      <li className="list-group-item" key={mapped.id}>
-        {mapped.name}
-      </li>
-    </ul>
+  const mappedFillingFirstCol = fillings.map(({ _id, name }) => (
+    <ListGroup flush key={_id}>
+      <TransitionGroup>
+        <CSSTransition key={_id} timeout={500} classNames="alert">
+          <ListGroupItem className="Filling--item" key={_id}>
+            <ButtonToggle
+              className="Flavours--item__remove-btn"
+              color="danger"
+              size="sm"
+              style={{ marginRight: "2rem" }}
+              onClick={function() {
+                onDeleteClick(_id);
+              }}
+            >
+              &times;
+            </ButtonToggle>
+            {name}
+          </ListGroupItem>
+        </CSSTransition>
+      </TransitionGroup>
+    </ListGroup>
   ));
-  const mappedFillingSecondCol = fillingSecondCol.map(mapped => (
-    <ul key={mapped.id} className="list-group list-group-flush">
-      <li className="list-group-item" key={mapped.id}>
-        {mapped.name}
-      </li>
-    </ul>
-  ));
-  const mappedFillingFirstCol = fillingFirstCol.map(mapped => (
-    <ul key={mapped.id} className="list-group list-group-flush">
-      <li className="list-group-item" key={mapped.id}>
-        {mapped.name}
-      </li>
-    </ul>
-  ));
+
   const styleFont = {
     fontWeight: "600",
     fontSize: "2rem"
   };
-  const stlyeMargin = {
-    marginBottom: "14rem",
-    marginTop: "9rem"
-  };
   return (
-    <div style={stlyeMargin}>
-      <Container className="Flavours" style={stlyeMargin}>
-        <Container className="m-5">
-          <Header title="FILLINGS" />
-        </Container>
-
+    <Container>
+      <Header title="FILLINGS" />
+      <FillingModel />
+      <Container className="Filling">
         <Row className="shadow-lg p-3 mb-5 bg-white rounded" style={styleFont}>
-          <Col lg={4} md={6}>
-            {mappedFillingFirstCol}
-          </Col>
-          <Col lg={4} md={6}>
-            {mappedFillingThirdCol}
-          </Col>
-          <Col lg={4} md={6}>
-            {mappedFillingSecondCol}
-          </Col>
+          <div className="Filling">{mappedFillingFirstCol}</div>
         </Row>
       </Container>
-    </div>
+    </Container>
   );
 };
+const mapStateToProp = state => ({
+  filling: state.filling
+});
 
-export default React.memo(Filling);
+export default connect(
+  mapStateToProp,
+  { getFillings, deleteFilling }
+)(Filling);

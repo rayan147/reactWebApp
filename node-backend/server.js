@@ -20,7 +20,10 @@ dotenv.config({ path: "./config/config.env" });
 connToMongoDB();
 // Route files
 const contact = require("./routes/contact");
-const uploadWithMulter = require("./routes/index");
+const soak = require("./routes/soak");
+const flavor = require("./routes/flavor");
+const filling = require("./routes/filling");
+const message = require("./routes/message");
 const contactQuote = require("./routes/contactQuote");
 
 const app = express();
@@ -58,19 +61,18 @@ app.use(cors());
 // fileUpload
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 // Upload Endpoint
-const { uploadfile } = require("./controllers/upload");
-
-app.post("/uploads", uploadfile);
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
 
 // Mount routers
 app.use("/api/v1/contact", contact);
-app.use("/api/v1/file", uploadWithMulter);
+app.use("/api/v1/soak", soak);
+app.use("/api/v1/flavor", flavor);
+app.use("/api/v1/filling", filling);
+app.use("/api/v1/message", message);
 app.use("/api/v1/quotes", contactQuote);
-////////
-////////
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
@@ -86,5 +88,5 @@ const server = app.listen(
 process.on("unhandledRejection", (err, promise) => {
   console.log(`Error: ${err.message}`.red);
   // Close server & exit process
-  // server.close(() => process.exit(1));
+  server.close(() => process.exit(1));
 });
