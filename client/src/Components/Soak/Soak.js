@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import ItemModel from "../ItemModel";
+import Update from "./Update";
 import "../../Assets/css/Flavours.css";
+import auth from "../Auth/auth";
 
 import Header from "../Layout/Header";
 import {
@@ -16,6 +18,9 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const Soaks = props => {
   const [state, setState] = useState();
+  const [editing, setEditing] = useState(false);
+  const initialFormState = { id: null, name: "" };
+  const [currentUser, setCurrentUser] = useState(initialFormState);
   const API_DATA = async () => {
     return await props.getItems();
   };
@@ -33,20 +38,6 @@ const Soaks = props => {
     return props.updateItem(id);
   };
 
-  // onSubmit = e => {
-  //   e.preventDefault();
-
-  //   const newItem = {
-  //     name: this.state.name
-  //   };
-
-  //   // Add item via addItem action
-  //   this.props.addItem(newItem);
-
-  //   // Close modal
-  //   this.toggle();
-  // };
-
   const { items } = props.item;
 
   const mappedSoaksFirstCol = items.map(({ _id, name }) => (
@@ -54,28 +45,21 @@ const Soaks = props => {
       <TransitionGroup key={_id}>
         <CSSTransition key={_id} timeout={500} classNames="alert">
           <ListGroupItem className="Flavours--item" key={_id}>
-            <ButtonToggle
-              className="Flavours--item__remove-btn"
-              color="danger"
-              size="sm"
-              style={{ marginRight: "2rem" }}
-              onClick={function() {
-                onDeleteClick(_id);
-              }}
-            >
-              &times;
-            </ButtonToggle>
-            <ButtonToggle
-              className="Flavours--item__remove-btn"
-              color="success"
-              size="sm"
-              style={{ marginRight: "2rem" }}
-              onClick={function() {
-                onUpdateClick(_id);
-              }}
-            >
-              +
-            </ButtonToggle>
+            {auth.isAuthenticated === true ? (
+              <ButtonToggle
+                className="Flavours--item__remove-btn"
+                color="danger"
+                size="sm"
+                style={{ marginRight: "2rem" }}
+                onClick={function() {
+                  onDeleteClick(_id);
+                }}
+              >
+                &times;
+              </ButtonToggle>
+            ) : (
+              ""
+            )}
             {name}
           </ListGroupItem>
         </CSSTransition>
@@ -87,10 +71,17 @@ const Soaks = props => {
     fontWeight: "600",
     fontSize: "2rem"
   };
+
+  const authLink = (
+    <Fragment>
+      <ItemModel />
+    </Fragment>
+  );
   return (
     <Container>
       <Header title="SOAKS" />
-      <ItemModel />
+      {auth.isAuthenticated === true ? authLink : ""}
+
       <Container className="Flavours">
         <Row className="shadow-lg p-3 mb-5 bg-white rounded" style={styleFont}>
           <div className="Flavours">{mappedSoaksFirstCol}</div>

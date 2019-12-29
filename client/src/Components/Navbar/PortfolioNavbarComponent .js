@@ -1,9 +1,20 @@
-import React, { Component } from "react";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap";
+import React, { Component, Fragment } from "react";
+import { Route } from "react-router-dom";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem
+} from "reactstrap";
 import "../../Assets/css/Navbar.css";
 // import "../../Assets/css/PortfolioNavbar.css";
 import Navbarlink from "./Navbarlink";
-
+import RegisterModal from "../Auth/RegisterModel";
+import LoginModal from "../Auth/LoginModal";
+import Logout from "../Auth/Logout";
+import auth from "../Auth/auth";
 class PortfolioNavbarComponent extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +29,14 @@ class PortfolioNavbarComponent extends Component {
       isOpen: !this.state.isOpen
     });
   }
+
   render() {
+    const guestLink = <Route path="/" component={LoginModal} />;
+    const authLink = (
+      <Fragment>
+        <Logout />
+      </Fragment>
+    );
     return (
       <div className="Navbarlink">
         <Navbar light expand="md">
@@ -34,8 +52,8 @@ class PortfolioNavbarComponent extends Component {
               <Navbarlink to="contact" className="" name="Contact"></Navbarlink>
 
               <Navbarlink to="quotes" className="" name="Quote"></Navbarlink>
-
               <Navbarlink to="gallery" className="" name="Gallery"></Navbarlink>
+              {auth.isAuthenticated === true ? authLink : guestLink}
             </Nav>
           </Collapse>
         </Navbar>
@@ -43,4 +61,5 @@ class PortfolioNavbarComponent extends Component {
     );
   }
 }
-export default React.memo(PortfolioNavbarComponent);
+
+export default PortfolioNavbarComponent;

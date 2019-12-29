@@ -8,9 +8,12 @@ const About = props => {
   const divAboutMainContent = (
     <>
       <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis vitae
-        ipsa soluta placeat illum eveniet totam quos laborum aliquid fugiat.
-        Nobis id iste amet adipisci ut ad doloremque facilis soluta?
+        Focusing in Bergen County and the surrounding areas, I try to get my
+        hands on the best quality ingredients possible. Being self taught, I've
+        had ample practice and have experimented with many different techniques.
+        With each order, I learn something new and discover more of my natural
+        ability to create one of a kind cakes and more. Everything is also made
+        by me personally.
       </p>
     </>
   );

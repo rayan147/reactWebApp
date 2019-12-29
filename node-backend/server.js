@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const colors = require("colors");
 const helmet = require("helmet");
 const xss = require("xss-clean");
+const cookieParser = require("cookie-parser");
 const hpp = require("hpp");
 const cors = require("cors");
 const sendEmail = require("./utils/sendEmail");
@@ -19,6 +20,8 @@ dotenv.config({ path: "./config/config.env" });
 // Connect to database
 connToMongoDB();
 // Route files
+const auth = require("./routes/auth");
+const users = require("./routes/users");
 const contact = require("./routes/contact");
 const soak = require("./routes/soak");
 const flavor = require("./routes/flavor");
@@ -27,7 +30,8 @@ const message = require("./routes/message");
 const contactQuote = require("./routes/contactQuote");
 
 const app = express();
-
+// Cookie parser
+app.use(cookieParser());
 // Body parser
 app.use(express.json({ limit: "50mb" }));
 
@@ -72,6 +76,8 @@ app.use("/api/v1/flavor", flavor);
 app.use("/api/v1/filling", filling);
 app.use("/api/v1/message", message);
 app.use("/api/v1/quotes", contactQuote);
+app.use("/api/v1/users", users);
+app.use("/api/v1/auth", auth);
 
 app.use(errorHandler);
 

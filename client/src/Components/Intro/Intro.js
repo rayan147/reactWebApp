@@ -8,10 +8,11 @@ import Header from "../Layout/Header";
 const Intro = () => {
   const divIntro = (
     <p className="lead">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis
-      quidem hic blanditiis, repellendus molestiae velit minus veritatis
-      recusandae id dolor, at expedita alias numquam cum laudantium distinctio
-      facere nesciunt ipsam!
+      Since founding Notorious Bakes for just years ago, Adriana has had the
+      exceptional ability and willingness to create desserts that are uniquely
+      designed to meet the requests of each individual client. Instead of
+      focusing on the specialization of one or two styles of baking, she offers
+      and expansive combination of choices.
     </p>
   );
 

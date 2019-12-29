@@ -17,20 +17,28 @@ async function getAllKeys(params, allKeys = []) {
   return allKeys;
 }
 
-handler().then(function(result) {
-  for (let k in result) {
-    let keys = result[k].toLocaleString();
-    s3.getObject(
-      {
-        Bucket: "adrianaimages",
-        Key: keys
-      },
-      function(err, data) {
-        if (err) console.log(err, err.stack);
-        // an error occurred
-        //.toString("base64")
-        else console.log(data.Body); // successful response
-      }
-    );
-  }
-});
+module.exports = {
+  getIMages: handler().then(function(result) {
+    for (let k in result) {
+      let keys = result[k].toLocaleString();
+      s3.getObject(
+        {
+          Bucket: "adrianaimages",
+          Key: keys
+        },
+        function(err, data) {
+          if (err) console.log(err, err.stack);
+          // an error occurred
+          //.toString("base64")
+          else {
+            for (let i in data.Body) {
+              let base64Array = [];
+              let buffer = data.Body;
+              console.log(base64Array.push(buffer));
+            }
+          } // successful response
+        }
+      );
+    }
+  })
+};

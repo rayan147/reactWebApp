@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import FillingModel from "./FillingModel";
 import "../../Assets/css/Filling.css";
+import auth from "../Auth/auth";
 
 import Header from "../Layout/Header";
 import {
@@ -34,17 +35,22 @@ const Filling = props => {
       <TransitionGroup>
         <CSSTransition key={_id} timeout={500} classNames="alert">
           <ListGroupItem className="Filling--item" key={_id}>
-            <ButtonToggle
-              className="Flavours--item__remove-btn"
-              color="danger"
-              size="sm"
-              style={{ marginRight: "2rem" }}
-              onClick={function() {
-                onDeleteClick(_id);
-              }}
-            >
-              &times;
-            </ButtonToggle>
+            {auth.isAuthenticated === true ? (
+              <ButtonToggle
+                className="Flavours--item__remove-btn"
+                color="danger"
+                size="sm"
+                style={{ marginRight: "2rem" }}
+                onClick={function() {
+                  onDeleteClick(_id);
+                }}
+              >
+                &times;
+              </ButtonToggle>
+            ) : (
+              ""
+            )}
+
             {name}
           </ListGroupItem>
         </CSSTransition>
@@ -56,10 +62,15 @@ const Filling = props => {
     fontWeight: "600",
     fontSize: "2rem"
   };
+  const authlink = (
+    <Fragment>
+      <FillingModel />
+    </Fragment>
+  );
   return (
     <Container>
       <Header title="FILLINGS" />
-      <FillingModel />
+      {auth.isAuthenticated === true ? authlink : ""}
       <Container className="Filling">
         <Row className="shadow-lg p-3 mb-5 bg-white rounded" style={styleFont}>
           <div className="Filling">{mappedFillingFirstCol}</div>
