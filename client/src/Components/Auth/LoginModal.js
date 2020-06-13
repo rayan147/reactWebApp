@@ -1,130 +1,150 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Form, Toggle } from "react-formik-ui";
-import * as Yup from "yup";
-import auth from "./auth";
-import { Formik, Field, ErrorMessage } from "formik";
+import React, { Component } from "react";
+import FormErrors from "./FormErrors";
+import Validate from "../utility/FormValidation";
+import { Auth } from "aws-amplify";
 import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  NavItem,
-  NavLink,
-  Input
+  Input,
 } from "reactstrap";
+class LoginModal extends Component {
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      username: "",
+      password: "",
+      modal: false,
+      errors: {
+        cognito: null,
+        blankfield: false,
+      },
+    };
+  }
 
-const LoginModal = ({ props, children, history }) => {
-  const [modal, setModal] = useState(false);
-  const [formMessage, setFormMessage] = useState("");
+  toggle() {
+    this.setState({
+      modal: !this.state.modal,
+    });
+  }
 
-  const toggle = () => setModal(!modal);
-  const textSize = {
-    fontSize: "1.6rem"
+  clearErrorState = () => {
+    this.setState({
+      errors: {
+        cognito: null,
+        blankfield: false,
+      },
+    });
   };
-  return (
-    <div>
-      <NavItem className="mt-4">
-        <NavLink>
-          <Button style={textSize} color="" onClick={toggle}>
-            Admin
-          </Button>
-        </NavLink>
-      </NavItem>
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-        {/* <ModalBody>{children} </ModalBody> */}
-        <ModalBody>
-          <Formik
-            initialValues={{ password: "", email: "" }}
-            validationSchema={Yup.object({
-              password: Yup.string()
-                .max(20, "Must be 20 characters or less")
-                .required("Required"),
-              email: Yup.string()
-                .email("Invalid email address")
-                .required("Required")
-            })}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
-              //SET DATA TO THE BACK WITH FORMDAT API
-              let formData = new FormData();
-              formData.append("password", values.password);
-              formData.append("email", values.email);
 
-              // WRITE AXIOS CALL TO THE SERVER HERE
+  handleSubmit = async (event) => {
+    event.preventDefault();
 
-              try {
-                async function sendFormDataToBackEnd() {
-                  const response = await axios.post(
-                    "/api/v1/auth/login",
-                    formData,
+    // Form validation
+    this.clearErrorState();
+    const error = Validate(event, this.state);
+    if (error) {
+      this.setState({
+        errors: { ...this.state.errors, ...error },
+      });
+    }
 
-                    {
-                      headers: {
-                        "Content-Type": "multipart/form-data"
-                      }
-                    }
-                  );
-                  resetForm();
-                  auth.login(() => {
-                    auth.isAuthenticated = true;
-                    history.push("/");
-                  });
-                  return response;
-                }
-                sendFormDataToBackEnd();
-              } catch (err) {
-                if (err.response.status === 500) {
-                  return setFormMessage("There was a problem with the server");
-                } else {
-                  setFormMessage(err.response.data.msg.msg);
-                }
-              }
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting
-              /* and other goodies */
-            }) => (
-              <Form>
-                <label htmlFor="email">Email Address</label>
-                <Field name="email" type="email" as={Input} />
-                <ErrorMessage name="email" />
+    // AWS Cognito integration here
+    const { username, password } = this.state;
+    try {
+      const user = await Auth.signIn(username, password);
 
-                <label htmlFor="password">Password</label>
-                <Field name="password" type="text" as={Input} />
-                <ErrorMessage name="password" />
-                <Button
-                  color="primary"
-                  type="submit"
-                  disable="false"
-                  className="mt-3"
-                  onClick={toggle}
-                >
-                  Submit
-                </Button>
-              </Form>
-            )}
-          </Formik>{" "}
-        </ModalBody>
-        <ModalFooter>
-          <Button color="danger" onClick={toggle}>
-            Exit
-          </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </div>
-  );
-};
+      this.props.auth.setUserFunc(user);
+      console.log("user", user);
+      this.props.auth.setAuthStatus(true);
+      this.props.history.push("/");
+    } catch (error) {
+      this.setState({
+        errors: {
+          ...this.state.errors,
+          cognito: !error.message ? "message" : error,
+        },
+      });
+    }
+  };
+
+  onInputChange = (event) => {
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+    document.getElementById(event.target.id).classList.remove("is-danger");
+  };
+
+  render() {
+    const { buttonLabel } = this.props;
+    return (
+      <>
+        <Modal
+          isOpen={!this.state.modal}
+          modalTransition={{ timeout: 700 }}
+          backdropTransition={{ timeout: 1300 }}
+          toggle={this.toggle}
+          className=""
+        >
+          {/* <Button color="danger" onClick={this.toggle}>
+            {buttonLabel}
+          </Button> */}
+          <ModalHeader toggle={this.toggle}>Welcome Back </ModalHeader>
+          <ModalBody>
+            <section className="section auth">
+              <div className="container">
+                <FormErrors formerrors={this.state.errors} />
+
+                <form onSubmit={this.handleSubmit}>
+                  <div className="field">
+                    <p className="control">
+                      <Input
+                        className="input"
+                        type="text"
+                        id="username"
+                        aria-describedby="usernameHelp"
+                        placeholder="Enter username or email"
+                        value={this.state.username}
+                        onChange={this.onInputChange}
+                      />
+                    </p>
+                  </div>
+                  <div className="field">
+                    <p className="control has-icons-left">
+                      <Input
+                        className="input"
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        value={this.state.password}
+                        onChange={this.onInputChange}
+                      />
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-lock"></i>
+                      </span>
+                    </p>
+                  </div>
+                  <div className="field">
+                    <p className="control">
+                      <a href="/forgotpassword">Forgot password?</a>
+                    </p>
+                  </div>
+                  <div className="field">
+                    <p className="control">
+                      <Button className="button is-success">Login</Button>
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </ModalBody>
+        </Modal>
+      </>
+    );
+  }
+}
 
 export default LoginModal;

@@ -3,7 +3,7 @@ import { NavItem, Col, Row, Container } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import "../../Assets/css/Navbar.css";
 
-const Navbarlink = ({ to, name, className }) => {
+const Navbarlink = ({ to, name, className, onClick, children }) => {
   return (
     <Container>
       <Row>
@@ -12,14 +12,15 @@ const Navbarlink = ({ to, name, className }) => {
             <NavLink
               style={{ color: "inherit", textDecoration: "inherit" }}
               className={`${className} Navbar--link`}
+              onClick={onClick}
               activeStyle={{
                 fontWeight: "light",
-                color: "blue"
+                color: "blue",
               }}
               strict
               to={`/${to}`}
             >
-              {name}
+              {name || children}
             </NavLink>
           </NavItem>
         </Col>

@@ -1,14 +1,12 @@
 import React, { Component } from "react";
+import { Auth } from "aws-amplify";
 import FormErrors from "./FormErrors";
 import Validate from "../utility/FormValidation";
-import { Auth } from "aws-amplify";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-class Register extends Component {
+
+class ChangePassword extends Component {
   state = {
-    username: "",
-    email: "",
-    password: "",
-    modal: false,
+    oldpassword: "",
+    newpassword: "",
     confirmpassword: "",
     errors: {
       cognito: null,
@@ -16,7 +14,7 @@ class Register extends Component {
       passwordmatch: false,
     },
   };
-  toggle = () => this.setState({ modal: !this.state.modal });
+
   clearErrorState = () => {
     this.setState({
       errors: {
@@ -40,24 +38,14 @@ class Register extends Component {
     }
 
     // AWS Cognito integration here
-    const { username, email, password } = this.state;
     try {
-      const signUpResponse = await Auth.signUp({
-        username,
-        password,
-        attributes: {
-          email,
-        },
-      });
-      console.log("signUpResponse", signUpResponse);
-      this.props.history.push("/");
+      const { oldpassword, newpassword, confirmpassword } = this.state;
+      const user = await Auth.currentAuthenticatedUser();
+      console.log(user);
+      await Auth.changePassword(user, oldpassword, newpassword);
+      this.props.history.push("/changepasswordconfirmation");
     } catch (error) {
-      this.setState({
-        errors: {
-          ...this.state.errors,
-          cognito: !error.message ? "message" : error,
-        },
-      });
+      console.error(error.message);
     }
   };
 
@@ -72,36 +60,22 @@ class Register extends Component {
     return (
       <section className="section auth">
         <div className="container">
-          <h1>Register</h1>
+          <h1>Change Password</h1>
           <FormErrors formerrors={this.state.errors} />
 
           <form onSubmit={this.handleSubmit}>
             <div className="field">
-              <p className="control">
+              <p className="control has-icons-left">
                 <input
                   className="input"
-                  type="text"
-                  id="username"
-                  aria-describedby="userNameHelp"
-                  placeholder="Enter username"
-                  value={this.state.username}
-                  onChange={this.onInputChange}
-                />
-              </p>
-            </div>
-            <div className="field">
-              <p className="control has-icons-left has-icons-right">
-                <input
-                  className="input"
-                  type="email"
-                  id="email"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                  value={this.state.email}
+                  type="password"
+                  id="oldpassword"
+                  placeholder="Old password"
+                  value={this.state.oldpassword}
                   onChange={this.onInputChange}
                 />
                 <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
+                  <i className="fas fa-lock"></i>
                 </span>
               </p>
             </div>
@@ -110,9 +84,9 @@ class Register extends Component {
                 <input
                   className="input"
                   type="password"
-                  id="password"
-                  placeholder="Password"
-                  value={this.state.password}
+                  id="newpassword"
+                  placeholder="New password"
+                  value={this.state.newpassword}
                   onChange={this.onInputChange}
                 />
                 <span className="icon is-small is-left">
@@ -142,7 +116,7 @@ class Register extends Component {
             </div>
             <div className="field">
               <p className="control">
-                <button className="button is-success">Register</button>
+                <button className="button is-success">Change password</button>
               </p>
             </div>
           </form>
@@ -152,4 +126,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default ChangePassword;

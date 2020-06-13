@@ -1,33 +1,29 @@
 import React, { Component } from "react";
+import { Auth } from "aws-amplify";
 import FormErrors from "./FormErrors";
 import Validate from "../utility/FormValidation";
-import { Auth } from "aws-amplify";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-class Register extends Component {
+
+class ForgotPasswordVerification extends Component {
   state = {
-    username: "",
+    verificationcode: "",
     email: "",
-    password: "",
-    modal: false,
-    confirmpassword: "",
+    newpassword: "",
     errors: {
       cognito: null,
       blankfield: false,
-      passwordmatch: false,
     },
   };
-  toggle = () => this.setState({ modal: !this.state.modal });
+
   clearErrorState = () => {
     this.setState({
       errors: {
         cognito: null,
         blankfield: false,
-        passwordmatch: false,
       },
     });
   };
 
-  handleSubmit = async (event) => {
+  passwordVerificationHandler = async (event) => {
     event.preventDefault();
 
     // Form validation
@@ -40,24 +36,12 @@ class Register extends Component {
     }
 
     // AWS Cognito integration here
-    const { username, email, password } = this.state;
     try {
-      const signUpResponse = await Auth.signUp({
-        username,
-        password,
-        attributes: {
-          email,
-        },
-      });
-      console.log("signUpResponse", signUpResponse);
-      this.props.history.push("/");
+      const { email, verificationcode, newpassword } = this.state;
+      await Auth.forgotPasswordSubmit(email, verificationcode, newpassword);
+      this.props.history.push("/changepasswordconfirmation");
     } catch (error) {
-      this.setState({
-        errors: {
-          ...this.state.errors,
-          cognito: !error.message ? "message" : error,
-        },
-      });
+      console.error(error.message);
     }
   };
 
@@ -72,25 +56,29 @@ class Register extends Component {
     return (
       <section className="section auth">
         <div className="container">
-          <h1>Register</h1>
+          <h1>Set new password</h1>
+          <p>
+            Please enter the verification code sent to your email address below,
+            your email address and a new password.
+          </p>
           <FormErrors formerrors={this.state.errors} />
 
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.passwordVerificationHandler}>
             <div className="field">
               <p className="control">
                 <input
-                  className="input"
                   type="text"
-                  id="username"
-                  aria-describedby="userNameHelp"
-                  placeholder="Enter username"
-                  value={this.state.username}
+                  className="input"
+                  id="verificationcode"
+                  aria-describedby="verificationCodeHelp"
+                  placeholder="Enter verification code"
+                  value={this.state.verificationcode}
                   onChange={this.onInputChange}
                 />
               </p>
             </div>
             <div className="field">
-              <p className="control has-icons-left has-icons-right">
+              <p className="control has-icons-left">
                 <input
                   className="input"
                   type="email"
@@ -108,26 +96,11 @@ class Register extends Component {
             <div className="field">
               <p className="control has-icons-left">
                 <input
-                  className="input"
                   type="password"
-                  id="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={this.onInputChange}
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-lock"></i>
-                </span>
-              </p>
-            </div>
-            <div className="field">
-              <p className="control has-icons-left">
-                <input
                   className="input"
-                  type="password"
-                  id="confirmpassword"
-                  placeholder="Confirm password"
-                  value={this.state.confirmpassword}
+                  id="newpassword"
+                  placeholder="New password"
+                  value={this.state.newpassword}
                   onChange={this.onInputChange}
                 />
                 <span className="icon is-small is-left">
@@ -137,12 +110,7 @@ class Register extends Component {
             </div>
             <div className="field">
               <p className="control">
-                <a href="/forgotpassword">Forgot password?</a>
-              </p>
-            </div>
-            <div className="field">
-              <p className="control">
-                <button className="button is-success">Register</button>
+                <button className="button is-success">Submit</button>
               </p>
             </div>
           </form>
@@ -152,4 +120,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default ForgotPasswordVerification;

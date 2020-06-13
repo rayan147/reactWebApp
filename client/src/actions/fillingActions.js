@@ -4,11 +4,11 @@ import {
   ADD_FILLING,
   DELETE_FILLING,
   FILLINGS_LOADING,
-  UPDATE_FILLING
+  UPDATE_FILLING,
 } from "./types";
 import { returnErrors } from "./errorActions";
 
-export const getFillings = () => async dispatch => {
+export const getFillings = () => async (dispatch) => {
   try {
     dispatch(setItemsLoading());
     let API = "/api/v1/filling";
@@ -17,20 +17,20 @@ export const getFillings = () => async dispatch => {
     const data = res.data.data;
     dispatch({
       type: GET_FILLINGS,
-      payload: data
+      payload: data,
     });
   } catch (error) {
     dispatch(returnErrors(error.response.data, error.response.status));
   }
 };
-export const addFilling = item => async (dispatch, getState) => {
+export const addFilling = (item) => async (dispatch, getState) => {
   try {
     let API = "/api/v1/filling";
     const res = await axios.post(API, item);
     const data = res.data.data;
     dispatch({
       type: ADD_FILLING,
-      payload: data
+      payload: data,
     });
   } catch (error) {
     dispatch(returnErrors(error.response.data, error.response.status));
@@ -44,13 +44,13 @@ export const updateFilling = (item, id) => async (dispatch, getState) => {
     dispatch({
       type: UPDATE_FILLING,
       payload: data,
-      id: id
+      id: id,
     });
   } catch (error) {
     dispatch(returnErrors(error.response.data, error.response.status));
   }
 };
-export const deleteFilling = id => async (dispatch, getState) => {
+export const deleteFilling = (id) => async (dispatch, getState) => {
   try {
     let API = `/api/v1/filling/${id}`;
 
@@ -58,7 +58,7 @@ export const deleteFilling = id => async (dispatch, getState) => {
 
     dispatch({
       type: DELETE_FILLING,
-      payload: id
+      payload: id,
     });
   } catch (error) {
     dispatch(returnErrors(error.response.data, error.response.status));
@@ -67,6 +67,6 @@ export const deleteFilling = id => async (dispatch, getState) => {
 
 export const setItemsLoading = () => {
   return {
-    type: FILLINGS_LOADING
+    type: FILLINGS_LOADING,
   };
 };

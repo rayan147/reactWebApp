@@ -2,10 +2,10 @@ import React from "react";
 import "../../Assets/css/Navbar.css";
 import PortfolioNavbar from "./PortfolioNavbarComponent ";
 
-const Navbar = () => {
+const Navbar = ({ auth }) => {
   return (
     <div className="Navbar mb-5">
-      <PortfolioNavbar />
+      <PortfolioNavbar auth={auth} />
     </div>
   );
 };
