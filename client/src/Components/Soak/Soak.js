@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import ItemModel from "../ItemModel";
 import Update from "./Update";
 import "../../Assets/css/Flavours.css";
-import auth from "../Auth/auth";
+
 
 import Header from "../Layout/Header";
 import {
@@ -45,7 +45,7 @@ const Soaks = props => {
       <TransitionGroup key={_id}>
         <CSSTransition key={_id} timeout={500} classNames="alert">
           <ListGroupItem className="Flavours--item" key={_id}>
-            {auth.isAuthenticated === true ? (
+            {props.auth.isAuthenticated === true ? (
               <ButtonToggle
                 className="Flavours--item__remove-btn"
                 color="danger"
@@ -80,7 +80,7 @@ const Soaks = props => {
   return (
     <Container>
       <Header title="SOAKS" />
-      {auth.isAuthenticated === true ? authLink : ""}
+      {props.auth.isAuthenticated === true ? authLink : ""}
 
       <Container className="Flavours">
         <Row className="shadow-lg p-3 mb-5 bg-white rounded" style={styleFont}>

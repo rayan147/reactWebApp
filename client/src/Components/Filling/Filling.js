@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import FillingModel from "./FillingModel";
 import "../../Assets/css/Filling.css";
-import auth from "../Auth/auth";
+
 
 import Header from "../Layout/Header";
 import {
@@ -35,7 +35,7 @@ const Filling = props => {
       <TransitionGroup>
         <CSSTransition key={_id} timeout={500} classNames="alert">
           <ListGroupItem className="Filling--item" key={_id}>
-            {auth.isAuthenticated === true ? (
+            {props.auth.isAuthenticated === true ? (
               <ButtonToggle
                 className="Flavours--item__remove-btn"
                 color="danger"
@@ -70,7 +70,7 @@ const Filling = props => {
   return (
     <Container>
       <Header title="FILLINGS" />
-      {auth.isAuthenticated === true ? authlink : ""}
+      {props.auth.isAuthenticated === true ? authlink : ""}
       <Container className="Filling">
         <Row className="shadow-lg p-3 mb-5 bg-white rounded" style={styleFont}>
           <div className="Filling">{mappedFillingFirstCol}</div>

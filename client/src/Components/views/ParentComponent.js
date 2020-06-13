@@ -40,12 +40,12 @@ const ParentComponent = (props) => {
 
   useEffect(() => {
     try {
-     const currentUser =  async  () => {
+     (async  () => {
         const session = await Auth.currentSession();
         setAuthStatus(true);
         const user = await Auth.currentAuthenticatedUser();
         setUserFunc(user);
-      };
+      })()
     } catch (error) {
       console.error(error.message);
     }
