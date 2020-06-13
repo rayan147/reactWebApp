@@ -7,6 +7,7 @@ const App = () => {
   return (
     <div className="App">
       <ParentComponent />
+      
     </div>
   );
 };

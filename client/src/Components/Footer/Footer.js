@@ -21,7 +21,7 @@ const Footer = () => {
       <Nav>
         <Container
           fluid
-          className="position-sticky shadow-sm p-2 mt-5 bg-white rounded"
+          className="position-sticky shadow-sm p-2 mt-5  rounded"
         >
           <Row>
             <ColIconComponent

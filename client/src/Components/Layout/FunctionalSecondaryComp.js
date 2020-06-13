@@ -24,11 +24,11 @@ const FunctionalSecondaryComp = ({ mainContent, title }) => {
 const styleSecandory = {
   display: "flex",
   flexDirection: "row",
-  justifyContent: "flex-start",
+  justifyContent: "center",
   alignItems: "baseline",
   marginTop: ".2rem",
   fontSize: "1.5rem",
   marginBottom: "1rem",
-  width: "120%"
+  width: "120%",
 };
 export default React.memo(FunctionalSecondaryComp);

@@ -5,7 +5,6 @@ import {
   Switch,
   Route,
   Redirect,
-  withRouter,
   BrowserRouter as Router,
 } from "react-router-dom";
 
@@ -16,7 +15,7 @@ import About from "../About";
 import GallaryDisplay from "../Gallery/GallaryDisplay";
 
 import Flavor from "../Flavor/Flavor";
-import Filling from "../Filling";
+import Filling from "../Filling"
 import Soaks from "../Soak";
 import Footer from "../Footer";
 import CarouselDisplay from "../Carousel";
@@ -41,12 +40,12 @@ const ParentComponent = (props) => {
 
   useEffect(() => {
     try {
-      (async () => {
+     const currentUser =  async  () => {
         const session = await Auth.currentSession();
         setAuthStatus(true);
         const user = await Auth.currentAuthenticatedUser();
         setUserFunc(user);
-      })();
+      };
     } catch (error) {
       console.error(error.message);
     }
@@ -59,17 +58,34 @@ const ParentComponent = (props) => {
     setUserFunc,
   };
   return (
-    <div className="App">
-      <Router>
-        <div>
+        <>
           <Navbar {...props} auth={authProps} />
-          <Switch>
+         
             <Route
               exact
               strict
               path="/"
-              render={(props) => <Intro {...props} auth={authProps} />}
+              render={props => <Intro {...props} auth={authProps} />}
             />
+             <Route
+              exact
+              strict
+              path="/"
+              render={(props) => <Soaks {...props} auth={authProps} />}
+            />
+             <Route
+              exact
+              strict
+              path="/"
+              render={(props) => <Filling {...props} auth={authProps} />}
+            />
+             <Route
+              exact
+              strict
+              path="/"
+              render={(props) => <Flavor {...props} auth={authProps} />}
+            />
+             <Switch>
             <Route
               exact
               strict
@@ -82,32 +98,9 @@ const ParentComponent = (props) => {
               path="/register"
               render={(props) => <Register {...props} auth={authProps} />}
             />
-            <Route
-              exact
-              strict
-              path="/"
-              render={(props) => (
-                <CarouselDisplay {...props} auth={authProps} />
-              )}
-            />
-            <Route
-              exact
-              strict
-              path="/"
-              render={(props) => <Flavor {...props} auth={authProps} />}
-            />
-            <Route
-              exact
-              strict
-              path="/"
-              render={(props) => <Soaks {...props} auth={authProps} />}
-            />
-            <Route
-              exact
-              strict
-              path="/"
-              render={(props) => <Filling {...props} auth={authProps} />}
-            />
+          
+           
+           
 
             <Route
               exact
@@ -166,9 +159,7 @@ const ParentComponent = (props) => {
           </Switch>
 
           <Footer />
-        </div>
-      </Router>
-    </div>
+        </>
   );
 };
 
